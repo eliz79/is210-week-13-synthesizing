@@ -24,9 +24,33 @@ class PickleCache(object):
         """Docstring."""
         return len(self.__data)
     
-    def __getitem__(self,key):
+    def __getitem__(self, key):
         try:
-            return self.__data[key]
-        except TypeError or KeyError:
+            if self.__data[key]:
+                return self.__data[key]
+        except KeyError, TypeError:
             raise KeyError
+
+    def __delitem__(self, key):
+        """Docstring."""
+        if key in self.__data:
+            del self.__data[key]
+            if self.autosync is not False:
+                self.flush()
+
+    def load(self):
+        """Docstring."""
+        self.__file_path = load
+        if os.path.exists(load) is True and os.path.getsize(load) > 0:
+            fhandler = open(self.__file_path, 'r')
+            self.__data = pickle.load(fhandler)
+            fhandler.close()
+
+    def flush(self):
+        fhandler = open(self.__file_path, 'w')
+        pickle.dump(self.__data, fhandler)
+        fhandler.close()
+    
         
+        
+    
