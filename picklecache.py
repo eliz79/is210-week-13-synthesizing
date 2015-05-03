@@ -11,13 +11,10 @@ class PickleCache(object):
 
     def __init__(self, file_path='datastore.pkl', autosync=False):
         """A constructor for the PickleCache class.
-
         Args:
             file_path(str, optional): defaults to datastore.pkl
             autosync(bool, optional): defaults to False
-
         Returns: None
-
         Example:
             >>> cacher = PickleCache()
             >>> print cacher._PickleCache__file_path
@@ -31,6 +28,7 @@ class PickleCache(object):
         self.__data = {}
         self.autosync = autosync
         self.__file_object = None
+        self.load()
 
     def __setitem__(self, key, value):
         """Method to make our cache act as a dictionary.
@@ -49,7 +47,6 @@ class PickleCache(object):
 
     def __len__(self):
         """To check the length of __data.
-
         Arg: None
         Return: None
         Example:
@@ -66,9 +63,7 @@ class PickleCache(object):
         """To retrieve data from PickleCache objects.
         Args:
             key(str, required): A required key input.
-
         Return: None
-
         Example:
             >>> pcache = PickleCache()
             >>> pcache['test'] = 'hello'
@@ -88,9 +83,7 @@ class PickleCache(object):
         """To del unwanted objects.
         Args:
             key(str, required): A required key input.
-
         Return: None
-
         Examples:
             >>> pcache = PickleCache()
             >>> pcache['test'] = 'hello'
